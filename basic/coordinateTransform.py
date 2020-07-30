@@ -168,44 +168,44 @@ def shearing(image, Jx = 0, Jy = 0):
 img = '../images/lena.png'
 image = cv2.imread(img) / 255
 
-# 平移操作
-Tx = 100
-Ty = 100
-c1,c2 = move(image,Tx,Ty)
-cv2.imshow('before',c1)
-cv2.imshow('after',c2)
-cv2.waitKey(0)
+#平移操作
+# Tx = 100
+# Ty = 100
+# c1,c2 = move(image,Tx,Ty)
+# cv2.imshow('before',c1)
+# cv2.imshow('after',c2)
+# cv2.waitKey(0)
 
-# 放缩操作
-Sx = 2
-Sy = 2
-c1,c2 = scaling(image,Sx,Sy)
-cv2.imshow('before',c1)
-cv2.imshow('after',c2)
-cv2.waitKey(0)
+# # 放缩操作
+# Sx = 2
+# Sy = 2
+# c1,c2 = scaling(image,Sx,Sy)
+# cv2.imshow('before',c1)
+# cv2.imshow('after',c2)
+# cv2.waitKey(0)
 
-# 旋转操作
-a = np.pi / 6 # 顺时针旋转
-c1,c2 = rotate(image,a)
-cv2.imshow('before',c1)
-cv2.imshow('after',c2)
-cv2.waitKey(0)
+#旋转操作
+# a = np.pi / 6 # 顺时针旋转
+# c1,c2 = rotate(image,a)
+# cv2.imshow('before',c1)
+# cv2.imshow('after',c2)
+# cv2.waitKey(0)
 
-#先平移，再放缩，最后旋转的级联操作
-Tx = 50
-Ty = 50
-Sx = 2
-Sy = 2
-a = np.pi / 6 # 顺时针旋转
-c1,c2 = union(image, Tx, Ty, Sx, Sy, a)
-cv2.imshow('before',c1)
-cv2.imshow('after',c2)
-cv2.waitKey(0)
+# #先平移，再放缩，最后旋转的级联操作
+# Tx = 50
+# Ty = 50
+# Sx = 2
+# Sy = 2
+# a = np.pi / 6 # 顺时针旋转
+# c1,c2 = union(image, Tx, Ty, Sx, Sy, a)
+# cv2.imshow('before',c1)
+# cv2.imshow('after',c2)
+# cv2.waitKey(0)
 
-#剪切
-Jx = 1
-Jy = 0
-c1,c2 = shearing(image,Jx,Jy)
-cv2.imshow('before',c1)
-cv2.imshow('after',c2)
-cv2.waitKey(0)
+# #剪切
+# Jx = 1
+# Jy = 0
+# c1,c2 = shearing(image,Jx,Jy)
+# cv2.imshow('before',c1)
+# cv2.imshow('after',c2)
+# cv2.waitKey(0)
