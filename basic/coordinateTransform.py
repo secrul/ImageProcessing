@@ -164,48 +164,102 @@ def shearing(image, Jx = 0, Jy = 0):
     return canvas, canvas2
 
 
+def similar(image,s,a, tx,ty):
+    canvas = np.zeros((400, 400, 3))
+    move = [[s * np.cos(a), s * np.sin(a), tx], [-s *np.sin(a), s * np.cos(a), ty], [0, 0, 1]]
+    move = np.array(move)
+    canvas2 = canvas.copy()
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            for k in range(3):
+                canvas[i][j][k] = image[i][j][k]
+
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            source = np.array([i, j, 1])
+            dst = move.dot(source.T)
+            dsti = int(dst[0])
+            dstj = int(dst[1])
+            if 0 < dsti < 400 and 0 < dstj < 400:  # 超出画布范围
+                canvas2[dsti][dstj][0] = image[i][j][0]
+                canvas2[dsti][dstj][1] = image[i][j][1]
+                canvas2[dsti][dstj][2] = image[i][j][2]
+    return canvas, canvas2
+
+
+def distanceequal(image, a, tx, ty, e):
+    canvas = np.zeros((400, 400, 3))
+    move = [[e * np.cos(a), s * np.sin(a), tx], [-e *np.sin(a), s * np.cos(a), ty], [0, 0, 1]]
+    move = np.array(move)
+    canvas2 = canvas.copy()
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            for k in range(3):
+                canvas[i][j][k] = image[i][j][k]
+
+    for i in range(image.shape[0]):
+        for j in range(image.shape[1]):
+            source = np.array([i, j, 1])
+            dst = move.dot(source.T)
+            dsti = int(dst[0])
+            dstj = int(dst[1])
+            if 0 < dsti < 400 and 0 < dstj < 400:  # 超出画布范围
+                canvas2[dsti][dstj][0] = image[i][j][0]
+                canvas2[dsti][dstj][1] = image[i][j][1]
+                canvas2[dsti][dstj][2] = image[i][j][2]
+    return canvas, canvas2
 
 img = '../images/lena.png'
 image = cv2.imread(img) / 255
 
-#平移操作
-# Tx = 100
-# Ty = 100
-# c1,c2 = move(image,Tx,Ty)
-# cv2.imshow('before',c1)
-# cv2.imshow('after',c2)
-# cv2.waitKey(0)
+# 平移操作
+Tx = 100
+Ty = 100
+c1,c2 = move(image,Tx,Ty)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+cv2.waitKey(0)
 
-# # 放缩操作
-# Sx = 2
-# Sy = 2
-# c1,c2 = scaling(image,Sx,Sy)
-# cv2.imshow('before',c1)
-# cv2.imshow('after',c2)
-# cv2.waitKey(0)
+# 放缩操作
+Sx = 4
+Sy = 2
+c1,c2 = scaling(image,Sx,Sy)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+cv2.waitKey(0)
 
-#旋转操作
-# a = np.pi / 6 # 顺时针旋转
-# c1,c2 = rotate(image,a)
-# cv2.imshow('before',c1)
-# cv2.imshow('after',c2)
-# cv2.waitKey(0)
+# 旋转操作
+a = np.pi / 6 # 顺时针旋转
+c1,c2 = rotate(image,a)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+cv2.waitKey(0)
 
-# #先平移，再放缩，最后旋转的级联操作
-# Tx = 50
-# Ty = 50
-# Sx = 2
-# Sy = 2
-# a = np.pi / 6 # 顺时针旋转
-# c1,c2 = union(image, Tx, Ty, Sx, Sy, a)
-# cv2.imshow('before',c1)
-# cv2.imshow('after',c2)
-# cv2.waitKey(0)
+#先平移，再放缩，最后旋转的级联操作
+Tx = 50
+Ty = 50
+Sx = 2
+Sy = 2
+a = np.pi / 6 # 顺时针旋转
+c1,c2 = union(image, Tx, Ty, Sx, Sy, a)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+cv2.waitKey(0)
 
-# #剪切
-# Jx = 1
-# Jy = 0
-# c1,c2 = shearing(image,Jx,Jy)
-# cv2.imshow('before',c1)
-# cv2.imshow('after',c2)
-# cv2.waitKey(0)
+#剪切
+Jx = 1
+Jy = 0
+c1,c2 = shearing(image,Jx,Jy)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+
+# 相似
+tx = 1
+ty = 0
+a = np.pi / 6
+s = 2
+
+c1,c2 = similar(image,s,a,tx,ty)
+cv2.imshow('before',c1)
+cv2.imshow('after',c2)
+cv2.waitKey(0)
