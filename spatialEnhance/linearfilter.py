@@ -41,9 +41,24 @@ def gaussianAverageFilter(image):
 
 
 def LaplaceFilter(image):
-    image = np.float32(image)
-    dst = cv2.Laplacian(image,-1, ksize=3)
-    return dst
+    canvas = np.zeros_like(image)
+    kernel = [[0, -1, 0], [-1, 4, -1], [0, -1, 0]]
+    kernel = np.array(kernel)
+
+    for i in range(1,image.shape[0] - 1):
+        for j in range(1,image.shape[1] - 1):
+            for k in range(3):
+                canvas[i][j][k] = np.sum(image[i-1:i + 2,j-1: j + 2,k ] * kernel)
+
+    maxx = np.max(canvas)
+    minn = np.min(canvas)
+
+    canvas = (canvas - minn) / (maxx - minn)
+    return canvas
+    # 调包
+    # image = np.float32(image)
+    # dst = cv2.Laplacian(image,-1, ksize=3)
+    # return dst
 
 
 def notSharpFilter(image):
