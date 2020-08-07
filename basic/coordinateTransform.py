@@ -217,22 +217,22 @@ Tx = 100
 Ty = 100
 c1,c2 = move(image,Tx,Ty)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('move',c2)
 cv2.waitKey(0)
 
 # 放缩操作
-Sx = 4
+Sx = 2
 Sy = 2
 c1,c2 = scaling(image,Sx,Sy)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('scaling',c2)
 cv2.waitKey(0)
 
 # 旋转操作
 a = np.pi / 6 # 顺时针旋转
 c1,c2 = rotate(image,a)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('rotate',c2)
 cv2.waitKey(0)
 
 #先平移，再放缩，最后旋转的级联操作
@@ -243,7 +243,7 @@ Sy = 2
 a = np.pi / 6 # 顺时针旋转
 c1,c2 = union(image, Tx, Ty, Sx, Sy, a)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('union',c2)
 cv2.waitKey(0)
 
 #剪切
@@ -251,15 +251,25 @@ Jx = 1
 Jy = 0
 c1,c2 = shearing(image,Jx,Jy)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('shearing',c2)
 
 # 相似
-tx = 1
-ty = 0
+tx = 10
+ty = 10
 a = np.pi / 6
-s = 2
+s = 1
 
 c1,c2 = similar(image,s,a,tx,ty)
 cv2.imshow('before',c1)
-cv2.imshow('after',c2)
+cv2.imshow('similar',c2)
+cv2.waitKey(0)
+
+a = np.pi / 6
+tx = 10
+ty = 10
+s  = -1
+
+c1,c2 = distanceequal(image,a,tx,ty, s)
+cv2.imshow('before',c1)
+cv2.imshow('distanceequal',c2)
 cv2.waitKey(0)
